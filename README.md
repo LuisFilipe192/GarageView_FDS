@@ -14,4 +14,18 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 
 ---
 
-![alt text](/img/backlog.png)
+![Backlog](/img/backlog.png)
+
+## Protótipos de Lo-Fi
+
+### Pagina Inicial
+![Pagina Inicial](img/pagina_inicial.png)
+
+### Anúncio
+![Anúncio](img/pagina_anuncio.png)
+
+### Criação de Anúncio
+![Criação de Anúncio](img/pagina_criaAnuncio.png)
+
+### Meus Anúncios - (Vendedor)
+![Meus Anúncios - (Vendedor)](img/pagina_meusAnuncios.png)
