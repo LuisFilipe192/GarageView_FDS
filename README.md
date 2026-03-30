@@ -10,7 +10,6 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 
 ## Print do quadro da Sprint e do Backlog
 
-<<<<<<< HEAD
 ![Quadro da Sprint](/img/sprint1.png)
 
 ---
@@ -24,8 +23,6 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 
 
 ![Quadro backlog](img/backlog.png)
->>>>>>> parent of 0aeeff3 (Adicionando codigo HTML e Django para funcionamento da aplicação)
-
 ## Protótipos de Lo-Fi
 
 ### Pagina Inicial
@@ -38,7 +35,6 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 ![Criação de Anúncio](img/pagina_criaAnuncio.png)
 
 ### Meus Anúncios - (Vendedor)
-<<<<<<< HEAD
 ![Meus Anúncios - (Vendedor)](img/pagina_meusAnuncios.png)
 =======
 ![Meus Anúncios - (Vendedor)](img/pagina_meusAnuncios.png)
@@ -46,4 +42,3 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 ---
 ## Sreencast
 [Vídeo](https://youtu.be/XrmxfoWl5ao?si=crOvMZbUFmec_ggd)
->>>>>>> parent of 0aeeff3 (Adicionando codigo HTML e Django para funcionamento da aplicação)
