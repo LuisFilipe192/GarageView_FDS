@@ -1,3 +1,1 @@
-release: python manage.py migrate
-
-web: gunicorn forum.wsgi
+web: gunicorn project.wsgi
