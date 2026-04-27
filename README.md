@@ -88,6 +88,6 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 
 ![alt text](img/Sprint3E.png)
 
-## programação em pares
+## link relato de programação em pares
 
 [programação em pares](https://docs.google.com/document/d/17JgSQA7zpRymojJEj2hrzNeWvENcwrajrRnmPQVOnKc/edit?usp=sharing)
