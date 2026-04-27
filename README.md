@@ -65,3 +65,10 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 ## Sreencast
 
 [Video](https://youtu.be/hZ6sR2XvMfE)
+
+# Entrega 3 - 27/04
+
+## Quadro da Sprint 02 e Backlog 
+
+![](img/Sprint3.png)
+![](img/backlog3.png)
