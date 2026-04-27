@@ -22,6 +22,14 @@
       <label for="descricao">Descrição</label><br>
       <textarea id="descricao" name="descricao" rows="6" style="width:100%;">{{ ad.descricao }}</textarea>
     </div>
+    <div style="margin-top:8px;">
+      <label for="vendedor">Nome do anunciante</label><br>
+      <input type="text" id="vendedor" name="vendedor" value="{{ ad.vendedor }}" style="width:100%;" placeholder="Ex: João Silva">
+    </div>
+    <div style="margin-top:8px;">
+      <label for="contato">Número para contato</label><br>
+      <input type="text" id="contato" name="contato" value="{{ ad.contato }}" style="width:100%;" placeholder="Ex: 11 91234-5678">
+    </div>
     <div style="margin-top:10px;">
       <input class="btn-primary" type="submit" value="Salvar alterações">
       <a href="{% url 'forum:ad_detail' ad.id %}"><button type="button">Cancelar</button></a>
