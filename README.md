@@ -77,3 +77,17 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 ## link do Deploy 
 
 [Link do Deply](https://garageview-fds-2.onrender.com)
+
+## Link dos Videos (YouTube)
+
+[Testes E2E](https://youtu.be/QQzp9_J_IJk)
+---
+[Screencast](https://youtu.be/GORMSd4rg1U)
+
+## Quadro Sprint referente as entregas 
+
+![alt text](img/Sprint3E.png)
+
+## programação em pares
+
+[programação em pares](https://docs.google.com/document/d/17JgSQA7zpRymojJEj2hrzNeWvENcwrajrRnmPQVOnKc/edit?usp=sharing)
