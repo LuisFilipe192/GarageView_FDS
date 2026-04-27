@@ -71,4 +71,5 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 ## Quadro da Sprint 02 e Backlog 
 
 ![](img/Sprint3.png)
+---
 ![](img/backlog3.png)
