@@ -47,7 +47,7 @@ O documento com as histórias de usuário e cenários BDD pode ser acessado abai
 
 ## link do Deploy 
 
-[Link do Deply](https://garageview-fds-2.onrender.com/forum/)
+[Link do Deploy](https://garageview-fds-2.onrender.com/forum/)
 
 ## Quadro da Sprint 02 e Backlog 
 
