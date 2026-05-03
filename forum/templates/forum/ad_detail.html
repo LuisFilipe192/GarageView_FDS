@@ -1,4 +1,5 @@
 {% extends "forum/base.html" %}
+{% load regex_replace %}
 
 {% block title %}{{ ad.titulo }}{% endblock %}
 
@@ -9,8 +10,6 @@
             <div style="height:220px; background:#f1f3f5; border-radius:8px; overflow:hidden;">
                 {% if ad.imagem_url %}
                     <img src="{{ ad.imagem_url }}" alt="{{ ad.titulo }}" style="width:100%; height:100%; object-fit:cover; display:block;">
-                {% else %}
-                    <img src="https://picsum.photos/seed/ad{{ ad.id }}/1000/600" alt="placeholder" style="width:100%; height:100%; object-fit:cover; display:block;">
                 {% endif %}
             </div>
             <div style="display:flex; gap:8px; margin-top:12px;">
@@ -18,8 +17,6 @@
                 <div style="flex:1; background:#f7f8f9; height:60px; border-radius:6px; overflow:hidden;">
                     {% if ad.imagem_url %}
                         <img src="{{ ad.imagem_url }}" alt="thumb" style="width:100%; height:100%; object-fit:cover; display:block;">
-                    {% else %}
-                        <img src="https://picsum.photos/seed/{{ ad.id }}{{ forloop.counter }}/300/180" alt="thumb" style="width:100%; height:100%; object-fit:cover; display:block;">
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -27,6 +24,14 @@
             <div style="margin-top:16px;">
                 <h2>{{ ad.titulo }}</h2>
                 <p style="color:#6c757d;">por {{ ad.vendedor }} — {{ ad.data_criacao }}</p>
+                {% if ad.contato %}
+                <div style="margin:8px 0 0 0; color:#444;">
+                    <span style="font-weight:600;">Contato:</span> {{ ad.contato }}
+                    <a href="https://wa.me/55{{ ad.contato|regex_replace:'\\D' }}" target="_blank" style="margin-left:10px; color:#25d366; font-weight:600; text-decoration:none;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:22px; vertical-align:middle; margin-right:3px;"> WhatsApp
+                    </a>
+                </div>
+                {% endif %}
                 <div style="background:#fff; padding:12px; border-radius:6px; margin-top:8px;">
                     <h3>Descrição</h3>
                     <p>{{ ad.descricao }}</p>

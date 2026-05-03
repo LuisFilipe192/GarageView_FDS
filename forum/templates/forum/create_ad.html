@@ -1,31 +1,43 @@
+
 {% extends "forum/base.html" %}
 
 {% block title %}Criar Anúncio{% endblock %}
 
 {% block content %}
-  <h2>Criar anúncio</h2>
-  <form method="post" action="{% url 'forum:ad_create' %}">
-    {% csrf_token %}
-    <div>
-      <label for="titulo">Nome do veículo</label><br>
-      <input type="text" id="titulo" name="titulo" required style="width:100%;">
+<div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+  <a href="{% url 'forum:index' %}" style="text-decoration:none;">
+    <button type="button" class="btn-primary outline">← Voltar</button>
+  </a>
+  <h2 style="margin:0;">Criar anúncio</h2>
+</div>
+<form method="post" action="{% url 'forum:ad_create' %}" style="background:#fff; border-radius:10px; padding:32px; max-width:700px; margin:auto; box-shadow:0 2px 12px #0001;">
+  {% csrf_token %}
+  <div style="display:flex; gap:24px; flex-wrap:wrap;">
+    <div style="flex:2; min-width:260px;">
+      <label for="titulo" style="font-weight:600;">Nome do veículo</label><br>
+      <input type="text" id="titulo" name="titulo" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px;" placeholder="Ex: Fiat Mobi 2022">
+
+      <label for="preco" style="font-weight:600;">Preço</label><br>
+      <input type="text" id="preco" name="preco" style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px;" placeholder="Ex: 50000">
+
+      <label for="imagem_url" style="font-weight:600;">Imagem (URL)</label><br>
+      <input type="text" id="imagem_url" name="imagem_url" style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px;" placeholder="Cole aqui o link da imagem">
+
+      <label for="descricao" style="font-weight:600;">Descrição</label><br>
+      <textarea id="descricao" name="descricao" rows="5" style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px; resize:vertical;" placeholder="Ex: Carro em ótimo estado, único dono, revisado."></textarea>
     </div>
-    <div style="margin-top:8px;">
-      <label for="preco">Preço</label><br>
-      <input type="text" id="preco" name="preco" style="width:200px;">
+    <div style="flex:1; min-width:220px;">
+      <label for="vendedor" style="font-weight:600;">Nome do anunciante</label><br>
+      <input type="text" id="vendedor" name="vendedor" style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px;" placeholder="Ex: João Silva">
+
+      <label for="contato" style="font-weight:600;">Número para contato</label><br>
+      <input type="text" id="contato" name="contato" style="width:100%; padding:10px; border-radius:6px; border:1px solid #d1d5db; margin-bottom:16px;" placeholder="Ex: 11 91234-5678">
     </div>
-    <div style="margin-top:8px;">
-      <label for="imagem_url">Imagem (URL)</label><br>
-      <input type="text" id="imagem_url" name="imagem_url" style="width:100%;">
-    </div>
-    <div style="margin-top:8px;">
-      <label for="descricao">Descrição</label><br>
-      <textarea id="descricao" name="descricao" rows="6" style="width:100%;"></textarea>
-    </div>
-    <div style="margin-top:10px; display:flex; gap:8px; align-items:center;">
-      <input class="btn-primary" type="submit" value="Salvar e publicar">
-      <button class="btn-primary outline" type="submit" name="next" value="novo">Salvar e criar outro</button>
-      <a href="{% url 'forum:index' %}"><button type="button">Cancelar</button></a>
-    </div>
-  </form>
+  </div>
+  <div style="margin-top:10px; display:flex; gap:8px; align-items:center; justify-content:flex-end;">
+    <input class="btn-primary" type="submit" value="Salvar e publicar">
+    <button class="btn-primary outline" type="submit" name="next" value="novo">Salvar e criar outro</button>
+    <a href="{% url 'forum:index' %}"><button type="button">Cancelar</button></a>
+  </div>
+</form>
 {% endblock %}

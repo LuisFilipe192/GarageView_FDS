@@ -13,8 +13,6 @@
         <div class="imagem-veiculo">
           {% if ad.imagem_url %}
             <img src="{{ ad.imagem_url }}" alt="{{ ad.titulo }}">
-          {% else %}
-            <img src="https://picsum.photos/seed/{{ ad.id }}/800/400" alt="placeholder">
           {% endif %}
         </div>
         <div class="info-veiculo">
