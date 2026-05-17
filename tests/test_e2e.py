@@ -80,9 +80,6 @@ class GarageViewE2ETest(unittest.TestCase):
             print("[DEBUG] Página erro:", driver.page_source[:500])
             pass
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.quit()
 
     def test_01_cadastro_login_logout(self):
         driver = self.driver
