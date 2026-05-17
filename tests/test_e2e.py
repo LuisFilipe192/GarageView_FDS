@@ -5,11 +5,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import os
 
 class GarageViewE2ETest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome()
+        selenium_remote_url = os.environ.get("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
+        options = webdriver.ChromeOptions()
+        cls.driver = webdriver.Remote(command_executor=selenium_remote_url, options=options)
         cls.driver.implicitly_wait(5)
         # Atualiza para o site oficial de deploy
         cls.base_url = "https://garageview-fds-8l00.onrender.com/forum/"
