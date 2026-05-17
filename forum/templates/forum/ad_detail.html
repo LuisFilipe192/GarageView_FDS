@@ -1,0 +1,127 @@
+{% extends "forum/base.html" %}
+{% load regex_replace %}
+
+{% block title %}{{ ad.titulo }}{% endblock %}
+
+{% block sidebar %}
+<h3>Ações</h3>
+<div class="sidebar-acoes">
+    <a href="{% url 'forum:index' %}" class="sidebar-btn">← Voltar à lista</a>
+    {% if request.user.is_authenticated and request.user == ad.usuario %}
+    <a href="{% url 'forum:ad_edit' ad.id %}" class="sidebar-btn btn-primary">Editar anúncio</a>
+    <form method="post" action="{% url 'forum:ad_delete' ad.id %}" onsubmit="return confirm('Excluir este anúncio?');">
+        {% csrf_token %}
+        <button type="submit" class="sidebar-btn btn-danger">Excluir anúncio</button>
+    </form>
+    {% endif %}
+    <a href="{% url 'forum:ad_create' %}" class="sidebar-btn">Criar novo anúncio</a>
+</div>
+<div class="sidebar-info-box">
+    <div class="sidebar-info-label">Publicado em</div>
+    <div class="sidebar-info-value">{{ ad.data_criacao|date:"d/m/Y" }}</div>
+    <div class="sidebar-info-label">Código</div>
+    <div class="sidebar-info-value">#{{ ad.id }}</div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<nav class="breadcrumb">
+    <a href="{% url 'forum:index' %}">Início</a>
+    <span>/</span>
+    {{ ad.titulo }}
+</nav>
+
+<h1 class="detalhe-titulo">{{ ad.titulo }}</h1>
+<p class="detalhe-subtitulo">
+    Vendedor: <strong>{{ ad.vendedor }}</strong>
+    &nbsp;·&nbsp; Publicado em {{ ad.data_criacao|date:"d/m/Y" }}
+    {% if ad.contato %}&nbsp;·&nbsp; Contato: {{ ad.contato }}{% endif %}
+</p>
+
+<div class="detalhe-layout">
+
+    
+    <div class="detalhe-galeria">
+        <div class="detalhe-img-principal">
+            <img src="{% if ad.imagem_url %}{{ ad.imagem_url }}{% else %}https://picsum.photos/seed/ad{{ ad.id }}/1000/600{% endif %}"
+                 alt="{{ ad.titulo }}" id="foto-principal">
+        </div>
+        <div class="detalhe-miniaturas">
+            {% for n in "123" %}
+            <div class="detalhe-miniatura {% if forloop.first %}ativa{% endif %}"
+                 onclick="trocarFoto(this,'{% if ad.imagem_url %}{{ ad.imagem_url }}{% else %}https://picsum.photos/seed/{{ ad.id }}{{ forloop.counter }}/800/600{% endif %}')">
+                <img src="{% if ad.imagem_url %}{{ ad.imagem_url }}{% else %}https://picsum.photos/seed/{{ ad.id }}{{ forloop.counter }}/800/600{% endif %}"
+                     alt="foto {{ forloop.counter }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+    <div class="detalhe-sidebar">
+
+        <div class="detalhe-card">
+            <div class="detalhe-preco-label">Preço</div>
+            <div class="detalhe-preco-valor">R$ {{ ad.preco }}</div>
+            <hr class="detalhe-divider">
+            <div class="detalhe-spec-linha">
+                <span class="detalhe-spec-key">Vendedor</span>
+                <span class="detalhe-spec-val">{{ ad.vendedor }}</span>
+            </div>
+            {% if ad.contato %}
+            <div class="detalhe-spec-linha">
+                <span class="detalhe-spec-key">Contato</span>
+                <span class="detalhe-spec-val">{{ ad.contato }}</span>
+            </div>
+            {% endif %}
+            <div class="detalhe-spec-linha">
+                <span class="detalhe-spec-key">Publicado</span>
+                <span class="detalhe-spec-val">{{ ad.data_criacao|date:"d/m/Y" }}</span>
+            </div>
+        </div>
+
+        <div class="detalhe-card">
+            <div class="detalhe-vendedor-row">
+                <div class="detalhe-vendedor-avatar">{{ ad.vendedor|first|upper }}</div>
+                <div>
+                    <div class="detalhe-vendedor-nome">{{ ad.vendedor }}</div>
+                    <div class="detalhe-vendedor-tag">Vendedor verificado ✓</div>
+                </div>
+            </div>
+
+            {% if ad.contato %}
+            <a href="https://wa.me/55{{ ad.contato|regex_replace:'\\D' }}" target="_blank"
+               class="detalhe-btn-whatsapp" style="text-decoration:none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" alt=""> WhatsApp
+            </a>
+            {% else %}
+            <button class="detalhe-btn-whatsapp"
+                    onclick="window.open('https://wa.me/?text=Olá! Tenho interesse no anúncio: {{ ad.titulo }}','_blank')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="18" alt=""> WhatsApp
+            </button>
+            {% endif %}
+
+            <button class="detalhe-btn-chat"
+                    onclick="ChatWidget.openChat('{{ ad.vendedor|escapejs }}', '{{ ad.id }}', '{{ ad.titulo|escapejs }}')">
+                💬 Iniciar conversa
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div class="detalhe-card">
+    <h3 class="detalhe-card-titulo">Descrição do anúncio</h3>
+    <p class="detalhe-descricao-texto">{{ ad.descricao }}</p>
+</div>
+
+<script>
+function trocarFoto(el, url) {
+    document.getElementById('foto-principal').src = url;
+    document.querySelectorAll('.detalhe-miniatura').forEach(m => m.classList.remove('ativa'));
+    el.classList.add('ativa');
+}
+</script>
+
+{% endblock %}
