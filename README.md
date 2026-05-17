@@ -96,9 +96,16 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 # Entrega 4 - 18/05
 
 ## Quadro da Sprint 04 e Backlog 
+
 ![alt text](img/backlog4.png)
 ---
 ![alt text](img/quadro4.png)
 
 ## link do Deploy 
 [Link do Deply](https://garageview-fds-8l00.onrender.com)
+
+## Sreencast
+
+[Testes 2E2](https://youtu.be/TfvAmt1XCIM)
+---
+[CI/CD](https://youtu.be/YvIE2ilWyW4)
