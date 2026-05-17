@@ -10,8 +10,11 @@ import os
 class GarageViewE2ETest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # Para rodar localmente, use o Chrome normal
+        # Configurações para rodar no CI/CD (headless, no-sandbox, disable-dev-shm-usage)
         options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
         cls.driver = webdriver.Chrome(options=options)
         cls.driver.implicitly_wait(5)
         cls.base_url = "https://garageview-fds-8l00.onrender.com/forum/"
