@@ -114,6 +114,7 @@
 <script>
 
 (function() {
+
     const CHAT_USER = '{{ request.user.username|default:"guest"|escapejs }}';
     const GLOBAL_KEY = 'gv_chats_global';
     let activeConv = null;
@@ -125,7 +126,22 @@
     }
     function saveGlobalChats(g) {
         localStorage.setItem(GLOBAL_KEY, JSON.stringify(g));
+        // Trigger storage event for other tabs
+        localStorage.setItem(GLOBAL_KEY + '_ts', Date.now());
     }
+
+    // Listen for changes in other tabs/devices
+    window.addEventListener('storage', function(e) {
+        if (e.key === GLOBAL_KEY || e.key === GLOBAL_KEY + '_ts') {
+            // Atualiza visualização se necessário
+            if (isOpen && activeConv) {
+                const g = loadGlobalChats();
+                renderMessages(g[activeConv]?.messages || []);
+            }
+            updateBadge();
+            renderList();
+        }
+    });
 
     // Return view of chats relevant to current user
     function loadChats() {
@@ -260,6 +276,7 @@
         msgsEl.scrollTop = msgsEl.scrollHeight;
     }
 
+
     function sendMessage() {
         const text = inputEl.value.trim();
         if (!text || !activeConv) return;
@@ -275,7 +292,8 @@
             }
         });
         saveGlobalChats(g);
-        appendMsgEl(msg);
+        // Atualiza visualização imediatamente
+        renderMessages(g[activeConv].messages);
         inputEl.value = '';
         updateBadge();
     }

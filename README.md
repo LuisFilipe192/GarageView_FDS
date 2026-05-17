@@ -109,3 +109,7 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 [Testes 2E2](https://youtu.be/TfvAmt1XCIM)
 ---
 [CI/CD](https://youtu.be/YvIE2ilWyW4)
+---
+## link do relato de programação em pares
+https://docs.google.com/document/d/17JgSQA7zpRymojJEj2hrzNeWvENcwrajrRnmPQVOnKc/edit?usp=sharing
+ 
