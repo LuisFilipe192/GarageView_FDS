@@ -47,6 +47,7 @@ class GarageViewE2ETest(unittest.TestCase):
     def _login_once(cls):
         driver = cls.driver
         driver.get(cls.base_url + "login/")
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
         driver.find_element(By.NAME, "username").clear()
         driver.find_element(By.NAME, "username").send_keys(cls._username)
         driver.find_element(By.NAME, "email").clear()
@@ -54,13 +55,14 @@ class GarageViewE2ETest(unittest.TestCase):
         driver.find_element(By.NAME, "password").clear()
         driver.find_element(By.NAME, "password").send_keys(cls._password)
         driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]").click()
-        WebDriverWait(driver, 5).until(lambda d: cls._username in d.page_source)
+        WebDriverWait(driver, 10).until(lambda d: cls._username in d.page_source)
 
     @classmethod
     def _ensure_user_exists(cls):
         driver = cls.driver
         driver.get(cls.base_url + "login/")
         try:
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
             driver.find_element(By.NAME, "username").send_keys(cls._username)
             driver.find_element(By.NAME, "email").send_keys(cls._email)
             driver.find_element(By.NAME, "password").send_keys(cls._password)
@@ -68,6 +70,7 @@ class GarageViewE2ETest(unittest.TestCase):
             # Se login falhar, faz cadastro
             if "Entrar" in driver.page_source or "E-mail não corresponde" in driver.page_source:
                 driver.get(cls.base_url + "cadastro/")
+                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
                 driver.find_element(By.NAME, "username").send_keys(cls._username)
                 driver.find_element(By.NAME, "password1").send_keys(cls._password)
                 driver.find_element(By.NAME, "password2").send_keys(cls._password)
