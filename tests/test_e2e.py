@@ -8,28 +8,23 @@ import time
 import os
 
 class GarageViewE2ETest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         selenium_remote_url = os.environ.get("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
         options = webdriver.ChromeOptions()
-        cls.driver = webdriver.Remote(command_executor=selenium_remote_url, options=options)
-        cls.driver.implicitly_wait(5)
-        # Atualiza para o site oficial de deploy
-        cls.base_url = "https://garageview-fds-8l00.onrender.com/forum/"
-        cls._username = "e2euser_teste"
-        cls._email = "e2euser_teste@test.com"
-        cls._password = "senhae2e123"
-        cls._ensure_user_exists()
-        # Login único para todo o site
-        cls._login_once()
+        self.driver = webdriver.Remote(command_executor=selenium_remote_url, options=options)
+        self.driver.implicitly_wait(5)
+        self.base_url = "https://garageview-fds-8l00.onrender.com/forum/"
+        self._username = "e2euser_teste"
+        self._email = "e2euser_teste@test.com"
+        self._password = "senhae2e123"
+        self._ensure_user_exists()
+        self._login_once()
 
-    @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         # Logout para garantir que o teste seja independente e não deixe sessão aberta
-        driver = cls.driver
+        driver = self.driver
         try:
-            driver.get(cls.base_url)
-            # Vai para o perfil se necessário
+            driver.get(self.base_url)
             try:
                 driver.find_element(By.LINK_TEXT, "Perfil").click()
             except:
@@ -37,50 +32,47 @@ class GarageViewE2ETest(unittest.TestCase):
                     driver.find_element(By.XPATH, "//a[contains(text(),'Perfil')]").click()
                 except:
                     pass
-            # Logout
             logout_form = driver.find_element(By.XPATH, "//form[@action='/forum/logout/']")
             logout_form.find_element(By.XPATH, ".//button").click()
         except Exception:
             pass
-        cls.driver.quit()
-    @classmethod
-    def _login_once(cls):
-        driver = cls.driver
-        driver.get(cls.base_url + "login/")
+        self.driver.quit()
+    def _login_once(self):
+        driver = self.driver
+        driver.get(self.base_url + "login/")
         print("[DEBUG] URL após GET login:", driver.current_url)
         print("[DEBUG] Página login (início):", driver.page_source[:500])
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
         driver.find_element(By.NAME, "username").clear()
-        driver.find_element(By.NAME, "username").send_keys(cls._username)
+        driver.find_element(By.NAME, "username").send_keys(self._username)
         driver.find_element(By.NAME, "email").clear()
-        driver.find_element(By.NAME, "email").send_keys(cls._email)
+        driver.find_element(By.NAME, "email").send_keys(self._email)
         driver.find_element(By.NAME, "password").clear()
-        driver.find_element(By.NAME, "password").send_keys(cls._password)
+        driver.find_element(By.NAME, "password").send_keys(self._password)
         driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]" ).click()
-        WebDriverWait(driver, 20).until(lambda d: cls._username in d.page_source)
+        WebDriverWait(driver, 20).until(lambda d: self._username in d.page_source)
         print("[DEBUG] Página login (fim):", driver.page_source[:500])
 
-    @classmethod
-    def _ensure_user_exists(cls):
-        driver = cls.driver
-        driver.get(cls.base_url + "login/")
+    def _ensure_user_exists(self):
+        driver = self.driver
+        driver.get(self.base_url + "login/")
         print("[DEBUG] URL após GET login (ensure):", driver.current_url)
         print("[DEBUG] Página login (ensure, início):", driver.page_source[:500])
         try:
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
-            driver.find_element(By.NAME, "username").send_keys(cls._username)
-            driver.find_element(By.NAME, "email").send_keys(cls._email)
-            driver.find_element(By.NAME, "password").send_keys(cls._password)
+            driver.find_element(By.NAME, "username").send_keys(self._username)
+            driver.find_element(By.NAME, "email").send_keys(self._email)
+            driver.find_element(By.NAME, "password").send_keys(self._password)
             driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]" ).click()
             # Se login falhar, faz cadastro
             if "Entrar" in driver.page_source or "E-mail não corresponde" in driver.page_source:
-                driver.get(cls.base_url + "cadastro/")
+                driver.get(self.base_url + "cadastro/")
                 print("[DEBUG] URL após GET cadastro:", driver.current_url)
                 print("[DEBUG] Página cadastro (início):", driver.page_source[:500])
                 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
-                driver.find_element(By.NAME, "username").send_keys(cls._username)
-                driver.find_element(By.NAME, "password1").send_keys(cls._password)
-                driver.find_element(By.NAME, "password2").send_keys(cls._password)
+                driver.find_element(By.NAME, "username").send_keys(self._username)
+                driver.find_element(By.NAME, "password1").send_keys(self._password)
+                driver.find_element(By.NAME, "password2").send_keys(self._password)
                 driver.find_element(By.XPATH, "//button[contains(text(),'Cadastrar')]" ).click()
                 print("[DEBUG] Página cadastro (fim):", driver.page_source[:500])
         except Exception as e:
