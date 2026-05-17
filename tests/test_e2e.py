@@ -47,35 +47,45 @@ class GarageViewE2ETest(unittest.TestCase):
     def _login_once(cls):
         driver = cls.driver
         driver.get(cls.base_url + "login/")
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
+        print("[DEBUG] URL após GET login:", driver.current_url)
+        print("[DEBUG] Página login (início):", driver.page_source[:500])
+        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
         driver.find_element(By.NAME, "username").clear()
         driver.find_element(By.NAME, "username").send_keys(cls._username)
         driver.find_element(By.NAME, "email").clear()
         driver.find_element(By.NAME, "email").send_keys(cls._email)
         driver.find_element(By.NAME, "password").clear()
         driver.find_element(By.NAME, "password").send_keys(cls._password)
-        driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]").click()
-        WebDriverWait(driver, 10).until(lambda d: cls._username in d.page_source)
+        driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]" ).click()
+        WebDriverWait(driver, 20).until(lambda d: cls._username in d.page_source)
+        print("[DEBUG] Página login (fim):", driver.page_source[:500])
 
     @classmethod
     def _ensure_user_exists(cls):
         driver = cls.driver
         driver.get(cls.base_url + "login/")
+        print("[DEBUG] URL após GET login (ensure):", driver.current_url)
+        print("[DEBUG] Página login (ensure, início):", driver.page_source[:500])
         try:
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
             driver.find_element(By.NAME, "username").send_keys(cls._username)
             driver.find_element(By.NAME, "email").send_keys(cls._email)
             driver.find_element(By.NAME, "password").send_keys(cls._password)
-            driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]").click()
+            driver.find_element(By.XPATH, "//button[contains(text(),'Entrar')]" ).click()
             # Se login falhar, faz cadastro
             if "Entrar" in driver.page_source or "E-mail não corresponde" in driver.page_source:
                 driver.get(cls.base_url + "cadastro/")
-                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "username")))
+                print("[DEBUG] URL após GET cadastro:", driver.current_url)
+                print("[DEBUG] Página cadastro (início):", driver.page_source[:500])
+                WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.NAME, "username")))
                 driver.find_element(By.NAME, "username").send_keys(cls._username)
                 driver.find_element(By.NAME, "password1").send_keys(cls._password)
                 driver.find_element(By.NAME, "password2").send_keys(cls._password)
-                driver.find_element(By.XPATH, "//button[contains(text(),'Cadastrar')]").click()
+                driver.find_element(By.XPATH, "//button[contains(text(),'Cadastrar')]" ).click()
+                print("[DEBUG] Página cadastro (fim):", driver.page_source[:500])
         except Exception as e:
+            print("[DEBUG] Exceção em _ensure_user_exists:", e)
+            print("[DEBUG] Página erro:", driver.page_source[:500])
             pass
 
     @classmethod
