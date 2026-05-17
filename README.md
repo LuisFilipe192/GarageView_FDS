@@ -102,3 +102,6 @@ Outro fator relevante foi o nível de familiaridade da equipe com a técnica. Co
 
 ## link do Deploy 
 [Link do Deply](https://garageview-fds-8l00.onrender.com)
+
+## link  invremento no relato de programação em pares
+https://docs.google.com/document/d/17JgSQA7zpRymojJEj2hrzNeWvENcwrajrRnmPQVOnKc/edit?usp=sharing
